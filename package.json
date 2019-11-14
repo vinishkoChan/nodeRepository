@@ -1,0 +1,31 @@
+{
+  "name": "eshop",
+  "version": "1.0.0",
+  "description": "node.js Lab 2019",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinishkoChan/nodeRepository.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinishkoChan/nodeRepository/issues"
+  },
+  "homepage": "https://github.com/vinishkoChan/nodeRepository#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-generator": "^4.16.1",
+    "express-session": "^1.17.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^5.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
