@@ -1,15 +1,9 @@
-const bodyParser = require("body-parser");
 const express = require("express");
 const productController = require("../controllers/productController");
 
-const productRouter = express.Router();
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const router = express.Router();
 
-productRouter.get("/", urlencodedParser, productController.index);
-productRouter.post(
-  "/create",
-  urlencodedParser,
-  productController.createProduct
-);
+router.get("/", productController.index);
+router.post("/create", productController.createProduct);
 
-module.exports = productRouter;
+module.exports = router;

@@ -1,2 +1,8 @@
 #Modules
 node_modules/
+
+#Sequelize environment
+.env
+
+#Sequelize config
+config/config.json
