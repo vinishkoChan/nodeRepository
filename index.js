@@ -1,7 +1,6 @@
 const express = require("express");
 const passport = require("passport");
 const bodyParser = require("body-parser");
-const env = require("dotenv");
 const app = express();
 
 const port = 3000;

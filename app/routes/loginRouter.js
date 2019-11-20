@@ -1,10 +1,10 @@
 const express = require("express");
-const homeController = require("../controllers/loginController");
+const loginController = require("../controllers/loginController");
 
 const router = express.Router();
 
-router.post("/", homeController.login, (req, res) => {
-  res.send(`You're successfully logged in as ${req.user.login}`);
+router.post("/", loginController.login, (req, res) => {
+  res.send(`Welcome, ${req.user.firstName}`);
 });
 
 module.exports = router;

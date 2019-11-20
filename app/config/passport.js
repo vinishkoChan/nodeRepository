@@ -1,23 +1,25 @@
 const localStrategy = require("passport-local").Strategy;
-
-const user = {
-  login: "vasya",
-  password: "qwerty"
-};
+const User = require("../database/user");
 
 module.exports = function(passport) {
   passport.use(
     "local",
     new localStrategy(
-      { usernameField: "login", passReqToCallback: true },
-      function(req, login, password, next) {
-        if (login != user.login) {
-          return next(null, false, "wrong login");
+      {
+        usernameField: "email",
+        passwordField: "password"
+      },
+      async (email, password, next) => {
+        const user = await User.findOne({ where: { email: email } });
+
+        if (!user) {
+          return next(null, false, "Wrong email or paswword");
         }
-        if (password != user.password) {
-          return next(null, false, "wrong password");
+        console.log(user.password, password, user.password !== password);
+        if (user.password !== password) {
+          return next(null, false, "Wrong email or paswword");
         }
-        return next(null, user, "user found");
+        return next(null, user);
       }
     )
   );
