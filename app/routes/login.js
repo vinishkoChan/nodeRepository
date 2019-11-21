@@ -1,10 +1,9 @@
 const express = require("express");
 const loginController = require("../controllers/login");
+const userMiddle = require("../middleware/user");
 
 const router = express.Router();
 
-router.post("/", loginController.login, (req, res) => {
-  res.send(`Welcome, ${req.user.first_name}`);
-});
+router.post("/", userMiddle.login, loginController.login);
 
 module.exports = router;

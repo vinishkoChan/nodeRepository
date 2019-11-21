@@ -1,19 +1,11 @@
-const Product = require("../models/products");
-
 exports.index = function(req, res) {
-  res.send("Here is the Product route");
+  if (!req.session.counter) {
+    req.session.counter = 1;
+    return res.send("You're here for the first time");
+  } else req.session.counter++;
+  return res.send(`Views = ${req.session.counter}`);
 };
 
 exports.createProduct = async function(req, res) {
-  console.log(req.body);
-  const product = await Product.create({
-    name: req.body.name,
-    price: req.body.price,
-    updDate: new Date(),
-    description: req.body.description,
-    image: req.body.image,
-    amount: req.body.amount,
-    mark: req.body.mark
-  });
   res.send(product);
 };

@@ -5,7 +5,6 @@ module.exports = async function(email, password, next) {
   if (!user) {
     return next(null, false, "Wrong email or paswword");
   }
-
   if (user.password !== password) {
     return next(null, false, "Wrong email or paswword");
   }
