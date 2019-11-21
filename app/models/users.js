@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const sequelize = require("./index");
+const sequelize = require("../database");
 
 const User = sequelize.define("user", {
   id: {
@@ -20,11 +20,13 @@ const User = sequelize.define("user", {
     type: Sequelize.STRING,
     allowNull: false
   },
-  firstName: {
-    type: Sequelize.STRING
+  first_name: {
+    type: Sequelize.STRING,
+    allowNull: false
   },
-  lastName: {
-    type: Sequelize.STRING
+  last_name: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 });
 

@@ -1,7 +1,7 @@
-const Product = require("../database/product");
+const Product = require("../models/products");
 
 exports.index = function(req, res) {
-  res.send("Here are the Product route");
+  res.send("Here is the Product route");
 };
 
 exports.createProduct = async function(req, res) {

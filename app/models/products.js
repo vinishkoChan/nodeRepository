@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const sequelize = require("./index");
+const sequelize = require("../database");
 
 const Product = sequelize.define("product", {
   id: {
@@ -10,14 +10,13 @@ const Product = sequelize.define("product", {
   },
   name: {
     type: Sequelize.STRING,
-    allowNull: false,
-    default: `#product`
+    allowNull: false
   },
   price: {
     type: Sequelize.DECIMAL,
     allowNull: false
   },
-  updDate: {
+  upd_date: {
     type: Sequelize.DATE,
     allowNull: false
   },
