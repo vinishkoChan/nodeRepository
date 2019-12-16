@@ -4,7 +4,7 @@
   "description": "node.js Lab 2019",
   "main": "index.js",
   "scripts": {
-    "app": "nodemon index.js"
+    "app": "nodemon ./src/"
   },
   "repository": {
     "type": "git",
