@@ -1,5 +1,16 @@
-const User = require("../models/users");
+const userService = require("../services/user");
+const creationError = require("../errors/CreationError");
 
-exports.signup = async function(req, res) {
-  res.send(res.body);
-};
+class SignUpController {
+  async signup(req, res, next) {
+    const userData = req.body;
+    try {
+      await userService.create(userData);
+    } catch (err) {
+      return next(new creationError("Registration failed"));
+    }
+    res.send("200 OK");
+  }
+}
+
+module.exports = new SignUpController();

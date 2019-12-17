@@ -1,12 +1,9 @@
-const users = require("../repository/users");
+const users = require("../repository/user");
 
 module.exports = async function(email, password, next) {
   const user = await users.findUser(email);
-  if (!user) {
-    return next(null, false, "Wrong email or paswword");
-  }
-  if (user.password !== password) {
-    return next(null, false, "Wrong email or paswword");
+  if (!user || user.password !== password) {
+    return next(null, false, "Wrong email or password");
   }
   return next(null, user);
 };
