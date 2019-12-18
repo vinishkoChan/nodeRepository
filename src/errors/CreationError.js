@@ -2,7 +2,7 @@ class CreationError extends Error {
   constructor(message) {
     super(message);
     this.name = "CreationError";
-    this.status = 100;
+    this.status = 500;
   }
 }
 
