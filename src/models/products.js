@@ -17,8 +17,7 @@ const Product = sequelize.define("product", {
     allowNull: false
   },
   upd_date: {
-    type: Sequelize.DATE,
-    allowNull: false
+    type: Sequelize.DATE
   },
   description: {
     type: Sequelize.TEXT
@@ -33,6 +32,10 @@ const Product = sequelize.define("product", {
   mark: {
     type: Sequelize.TINYINT
   }
+});
+
+Product.beforeCreate((product, options) => {
+  product.upd_date = new Date();
 });
 
 module.exports = Product;

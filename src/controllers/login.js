@@ -5,7 +5,7 @@ class LoginController {
   login(req, res, next) {
     passport.authenticate("local", (err, user, info) => {
       if (user) {
-        req.user = user;
+        req.session.user_id = user.id;
         return res.send("You authorized");
       }
       return next(info);

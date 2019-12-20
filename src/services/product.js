@@ -13,8 +13,8 @@ class ProductService {
     return await Product.delete(id);
   }
 
-  async list() {
-    return await Product.list();
+  async list(params) {
+    return await Product.list(params);
   }
 }
 

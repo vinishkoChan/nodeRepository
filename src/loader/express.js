@@ -5,6 +5,6 @@ const express = require("express");
 const router = express.Router();
 
 router.use(bodyParser.json());
-//router.use(session({ secret: "ky" }));
+router.use(session({ secret: "ky" }));
 
 module.exports = router;
