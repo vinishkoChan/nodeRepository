@@ -9,6 +9,10 @@ class UserRep {
   async create(user) {
     return await User.create(user);
   }
+
+  async list() {
+    return await User.findAll();
+  }
 }
 
 module.exports = new UserRep();
