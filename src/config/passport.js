@@ -11,7 +11,7 @@ module.exports = function(passport) {
         passwordField: "password"
       },
       (email, password, next) => {
-        auth(email, password, next);
+        auth.login(email, password, next);
       }
     )
   );

@@ -1,11 +1,11 @@
 const passport = require("passport");
-const userService = require("../services/user");
 
 class LoginController {
   login(req, res, next) {
+    console.log("Asdddddddd");
     passport.authenticate("local", (err, user, info) => {
       if (user) {
-        req.session.user_id = user.id;
+        req.session.user = user;
         return res.send("You authorized");
       }
       return next(info);

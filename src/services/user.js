@@ -1,9 +1,20 @@
-const User = require("../repository/user");
+const Users = require("../repository/user");
+const DeleteRequest = require("../repository/deleteAccount");
 
-class UserService {
-  async create(userData) {
-    return await User.create(userData);
+class UsersService {
+  async delete(id) {
+    console.log("sadasdasds");
+    if (await DeleteRequest.findRequest(id)) {
+      console.log("sadasdasds");
+      return await Users.delete(id);
+    } else {
+      throw new Error("ASDasdasdasdadasd");
+    }
+  }
+
+  async list() {
+    return await Users.list();
   }
 }
 
-module.exports = new UserService();
+module.exports = new UsersService();

@@ -1,11 +1,19 @@
-const users = require("../repository/user");
+const User = require("../repository/user");
 
-module.exports = async function(email, password, next) {
-  const user = await users.findUser(email);
-
-  if (!user || user.password !== password) {
-    return next(null, false, "Wrong email or password");
+class UserService {
+  async signUp(userData) {
+    return await User.create(userData);
   }
 
-  return next(null, user);
-};
+  async login(email, password, next) {
+    const user = await User.findUser(email);
+
+    if (!user || user.password !== password) {
+      return next(null, false, "Wrong email or password");
+    }
+
+    return next(null, user);
+  }
+}
+
+module.exports = new UserService();

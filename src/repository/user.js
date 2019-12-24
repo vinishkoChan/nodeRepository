@@ -1,4 +1,4 @@
-const User = require("../models/users");
+const User = require("../models/user");
 
 class UserRep {
   async findUser(email) {
@@ -12,6 +12,10 @@ class UserRep {
 
   async list() {
     return await User.findAll();
+  }
+
+  async delete(id) {
+    return await User.destroy({ where: { id: id } });
   }
 }
 
