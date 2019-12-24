@@ -30,7 +30,7 @@ const Product = sequelize.define("product", {
     allowNull: false
   },
   mark: {
-    type: Sequelize.TINYINT
+    type: Sequelize.DECIMAL
   }
 });
 

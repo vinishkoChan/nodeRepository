@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database");
+const Mark = require("./mark");
 
 const User = sequelize.define("user", {
   id: {
@@ -30,4 +31,5 @@ const User = sequelize.define("user", {
   }
 });
 
+User.hasMany(Mark);
 module.exports = User;

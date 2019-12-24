@@ -3,7 +3,7 @@ const CreationError = require("../errors/CreationError");
 const UpdateError = require("../errors/UpdateError");
 
 class ProductController {
-  async createProduct(req, res, next) {
+  async create(req, res, next) {
     const productData = req.body;
     try {
       res.send(await productService.create(productData));
@@ -13,7 +13,7 @@ class ProductController {
     }
   }
 
-  async changeProduct(req, res, next) {
+  async change(req, res, next) {
     const productId = req.params.id;
     const productData = req.body;
     try {
@@ -23,7 +23,7 @@ class ProductController {
     }
   }
 
-  async deleteProduct(req, res, next) {
+  async delete(req, res, next) {
     const productId = req.params.id;
     try {
       res.send(await productService.delete(productId));
@@ -38,6 +38,17 @@ class ProductController {
       res.json(await productService.list(params));
     } catch (err) {
       return next(new UpdateError("Failed to print list of products"));
+    }
+  }
+
+  async setMark(req, res, next) {
+    try {
+      let userId = req.session.user.id;
+      let productId = req.params.id;
+      let markValue = req.query.value;
+      res.send(await productService.setMark(userId, productId, markValue));
+    } catch (err) {
+      return next(new UpdateError("Failed to mark product"));
     }
   }
 }

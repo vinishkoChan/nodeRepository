@@ -1,6 +1,6 @@
 const User = require("../models/user");
 
-class UserRep {
+class UserRepository {
   async findUser(email) {
     const user = await User.findOne({ where: { email: email } });
     return user;
@@ -19,4 +19,4 @@ class UserRep {
   }
 }
 
-module.exports = new UserRep();
+module.exports = new UserRepository();

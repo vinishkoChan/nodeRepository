@@ -2,7 +2,6 @@ const passport = require("passport");
 
 class LoginController {
   login(req, res, next) {
-    console.log("Asdddddddd");
     passport.authenticate("local", (err, user, info) => {
       if (user) {
         req.session.user = user;

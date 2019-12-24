@@ -16,6 +16,10 @@ class ProductService {
   async list(params) {
     return await Product.list(params);
   }
+
+  async setMark(userId, productId, markValue) {
+    return await Product.setMark(userId, productId, markValue);
+  }
 }
 
 module.exports = new ProductService();

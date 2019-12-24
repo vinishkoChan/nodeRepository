@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const sequelize = require("../database");
 const User = require("./user");
 
-const DeleteRequest = sequelize.define("deletion_request", {
+const DeleteRequest = sequelize.define("delete_request", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
