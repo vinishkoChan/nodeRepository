@@ -35,7 +35,7 @@ CREATE TABLE products (
     `description` TEXT,
     `image` varchar(255),
     amount INT NOT NULL,
-    mark DECIMAL DEFAULT 0,
+    mark FLOAT DEFAULT 0,
     PRIMARY KEY (id)
 );
 
