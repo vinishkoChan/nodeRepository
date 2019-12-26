@@ -9,6 +9,7 @@ class ProductRepository {
 
   async change(id, productData) {
     productData.upd_date = new Date();
+    productData.mark = 2.5;
     console.log(productData);
     await Product.update(productData, { where: { id: id } });
   }
@@ -44,18 +45,15 @@ class ProductRepository {
       value: markValue
     });
     console.log("2");
-    let markNumber = 6; //await Mark.count({ where: { product_id: product_id } });
-    console.log(markNumber);
-    let markSum = 14; //await Mark.sum("mark", { where: { product_id: product_id } });
-    console.log(markSum);
-    let markTotalValue = markSum / markNumber;
+    let markNumber = await Mark.count({ where: { product_id: productId } });
+    let markSum = await Mark.sum("value", { where: { product_id: productId } });
+    let markTotalValue = (markSum / markNumber).toFixed(2);
+    console.log(markSum + " / " + markNumber + " = " + markTotalValue);
 
-    console.log(markTotalValue);
-    let obj = new Object();
-    obj.mark = markTotalValue;
-    obj.upd_date = new Date();
-    console.log(obj);
-    return await Product.update(obj, { where: { id: product_id } });
+    await Product.update(
+      { mark: markTotalValue, upd_date: new Date() },
+      { where: { id: productId } }
+    );
   }
 }
 

@@ -46,7 +46,8 @@ class ProductController {
       let userId = req.session.user.id;
       let productId = req.params.id;
       let markValue = req.query.value;
-      res.send(await productService.setMark(userId, productId, markValue));
+      await productService.setMark(userId, productId, markValue);
+      res.send("Mark set successful");
     } catch (err) {
       return next(new UpdateError("Failed to mark product"));
     }
