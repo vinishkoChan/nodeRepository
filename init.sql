@@ -6,7 +6,7 @@ USE e_shop_db;
 CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT,
     email varchar(50) NOT NULL,
-    `password` varchar(30) NOT NULL,
+    `password` varchar(255) NOT NULL,
     first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
     PRIMARY KEY (id)
@@ -34,7 +34,7 @@ CREATE TABLE products (
     upd_date DATE,
     `description` TEXT,
     `image` varchar(255),
-    amount INT NOT NULL,
+    amount INT DEFAULT NULL,
     mark FLOAT DEFAULT 0,
     PRIMARY KEY (id)
 );
