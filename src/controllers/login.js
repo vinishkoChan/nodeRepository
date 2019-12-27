@@ -1,4 +1,5 @@
 const passport = require("passport");
+const UpdateError = require("../errors/UpdateError");
 
 class LoginController {
   login(req, res, next) {
@@ -7,7 +8,7 @@ class LoginController {
         req.session.user = user;
         return res.send("You authorized");
       }
-      return next(info);
+      return next(new UpdateError("Authorizayion failed"));
     })(req, res, next);
   }
 }

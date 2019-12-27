@@ -26,11 +26,10 @@ const Product = sequelize.define("product", {
     type: Sequelize.STRING
   },
   amount: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+    type: Sequelize.INTEGER
   },
   mark: {
-    type: Sequelize.DECIMAL
+    type: Sequelize.FLOAT
   }
 });
 

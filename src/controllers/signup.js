@@ -7,6 +7,7 @@ class SignUpController {
     try {
       await authService.signUp(userData);
     } catch (err) {
+      console.log(err);
       return next(new creationError("Registration failed"));
     }
     res.send("200 OK");
