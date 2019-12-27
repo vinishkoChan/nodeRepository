@@ -63,16 +63,16 @@ INSERT INTO users (email, password, first_name, last_name) VALUES ("testemail1@g
  
 INSERT INTO users_roles (user_id, role_id) VALUES (1, 1);
 INSERT INTO products (name, price, description, image, amount) VALUES 
-("Bpple iPhone 1", 300,  "Latest iPhone version. Apple.", "no_url", 1),
+("Bpple iPhone 1", 300,  "Latest iPhone version. Apple.", "no_url", NULL),
 ("Apple iPhone 2", 300,  "Latest iPhone version. Apple.", "no_url", 4),
 ("Rpple iPhone 3", 300,  "Latest iPhone version. Apple.", "no_url", 13),
-("Apple iPhone 4", 300,  "Latest iPhone version. Apple.", "no_url", 0),
+("Apple iPhone 4", 300,  "Latest iPhone version. Apple.", "no_url", NULL),
 ("Kpple iPhone 5", 300,  "Latest iPhone version. Apple.", "no_url", 4),
 ("Ypple iPhone 6", 300,  "Latest iPhone version. Apple.", "no_url", 24),
 ("Jpple iPhone 7", 300, "Latest iPhone version. Apple.", "no_url", 4),
-("Ppple iPhone 8", 300, "Latest iPhone version. Apple.", "no_url", 0),
+("Ppple iPhone 8", 300, "Latest iPhone version. Apple.", "no_url", NULL),
 ("Vpple iPhone 9", 300, "Latest iPhone version. Apple.", "no_url", 7),
-("Mpple iPhone 10", 300, "Latest iPhone version. Apple.", "no_url", 0),
+("Mpple iPhone 10", 300, "Latest iPhone version. Apple.", "no_url", NULL),
 ("Qpple iPhone 11", 300, "Latest iPhone version. Apple.", "no_url", 2);
 INSERT INTO marks (user_id, product_id, value) VALUES (1, 1, 5);
 
