@@ -8,7 +8,7 @@ class LoginController {
         req.session.user = user;
         return res.send("You authorized");
       }
-      return next(new UpdateError("Authorizayion failed"));
+      return next(new UpdateError("Authorization failed"));
     })(req, res, next);
   }
 }

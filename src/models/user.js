@@ -41,7 +41,8 @@ User.hashPassword = password => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
-User.prototype.validatePassword = password => {
+User.prototype.validatePassword = function(password) {
+  console.log(password + " " + this.password);
   if (!password || !this.password) {
     return false;
   }
