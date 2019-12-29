@@ -1,15 +1,14 @@
 const Product = require("../models/product");
 const Op = require("sequelize").Op;
-const Mark = require("../models/mark");
+const Mark = require("./mark");
 
 class ProductRepository {
   async create(product) {
     return await Product.create(product);
   }
 
-  async change(id, productData) {
+  async update(id, productData) {
     productData.upd_date = new Date();
-    productData.mark = 2.5;
     console.log(productData);
     await Product.update(productData, { where: { id: id } });
   }
@@ -19,39 +18,48 @@ class ProductRepository {
   }
 
   async list(params) {
-    let imgOnly = null;
-
+    let object = new Object();
+    object.where = {};
+    object.raw = true;
     if (params.imgOnly) {
-      imgOnly = { image: { [Op.ne]: null } };
+      object.where.image = { [Op.ne]: null };
     }
     if (params.orderBy) {
-      let result = await Product.findAll({
-        order: [[params.orderBy, "ASC"]],
-        where: imgOnly,
-        raw: true
-      });
-      imgOnly = null;
-      return result;
+      object.order = [[params.orderBy, "ASC"]];
     }
 
-    return await Product.findAll({ raw: true });
+    object.where.amount = { [Op.ne]: null };
+    let noNulls = await Product.findAll(object);
+
+    object.where.amount = null;
+    let withNulls = await Product.findAll(object);
+
+    let result = noNulls.concat(withNulls);
+
+    for (let obj of result) {
+      obj["Amount of marks"] = await Mark.countMarks(obj.id);
+    }
+
+    return result;
   }
 
   async setMark(userId, productId, markValue) {
-    console.log("1");
-    await Mark.create({
-      user_id: userId,
-      product_id: productId,
-      value: markValue
-    });
-    console.log("2");
-    let markNumber = await Mark.count({ where: { product_id: productId } });
-    let markSum = await Mark.sum("value", { where: { product_id: productId } });
-    let markTotalValue = (markSum / markNumber).toFixed(2);
-    console.log(markSum + " / " + markNumber + " = " + markTotalValue);
+    if (await Mark.find(userId, productId)) {
+      await Mark.update(userId, productId, markValue);
+    } else {
+      await Mark.create(userId, productId, markValue);
+    }
+    await Product.update(
+      { mark: await Mark.calculateTotalMark(productId), upd_date: new Date() },
+      { where: { id: productId } }
+    );
+  }
+
+  async deleteMark(userId, productId) {
+    await Mark.delete(userId, productId);
 
     await Product.update(
-      { mark: markTotalValue, upd_date: new Date() },
+      { mark: await Mark.calculateTotalMark(productId), upd_date: new Date() },
       { where: { id: productId } }
     );
   }

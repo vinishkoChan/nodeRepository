@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database");
-const Product = require("./product");
 
 const Mark = sequelize.define("marks", {
   id: {
@@ -23,5 +22,4 @@ const Mark = sequelize.define("marks", {
   }
 });
 
-Mark.belongsTo(Product, { foreignKey: "id", onDelete: "CASCADE" });
 module.exports = Mark;

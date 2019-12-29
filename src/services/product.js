@@ -5,8 +5,8 @@ class ProductService {
     return await Product.create(product);
   }
 
-  async change(id, productData) {
-    return await Product.change(id, productData);
+  async update(id, productData) {
+    return await Product.update(id, productData);
   }
 
   async delete(id) {
@@ -19,6 +19,10 @@ class ProductService {
 
   async setMark(userId, productId, markValue) {
     return await Product.setMark(userId, productId, markValue);
+  }
+
+  async deleteMark(userId, productId) {
+    return await Product.deleteMark(userId, productId);
   }
 }
 

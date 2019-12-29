@@ -1,9 +1,8 @@
 const DeleteRequest = require("../models/deleteRequest");
 
 class DeleteAccountRepository {
-  async findRequest(user_id) {
-    console.log(user_id);
-    return await DeleteRequest.findOne({ where: { user_id: user_id } });
+  async findRequest(userId) {
+    return await DeleteRequest.findOne({ where: { user_id: userId } });
   }
 
   async create(id) {

@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database");
+const Mark = require("./mark");
 
 const Product = sequelize.define("product", {
   id: {
@@ -36,5 +37,7 @@ const Product = sequelize.define("product", {
 Product.beforeCreate((product, options) => {
   product.upd_date = new Date();
 });
+
+Product.hasMany(Mark, { foreignKey: "product_id" });
 
 module.exports = Product;

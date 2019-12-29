@@ -37,17 +37,18 @@ User.beforeCreate((user, opts) => {
 });
 
 User.hashPassword = password => {
-  console.log(password);
+  //console.log(password);
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
 User.prototype.validatePassword = function(password) {
-  console.log(password + " " + this.password);
+  //console.log(password + " " + this.password);
   if (!password || !this.password) {
     return false;
   }
   return bcrypt.compareSync(password, this.password);
 };
 
-User.hasMany(Mark);
+User.hasMany(Mark, { foreignKey: "user_id" });
+
 module.exports = User;

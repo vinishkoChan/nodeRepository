@@ -13,11 +13,11 @@ class ProductController {
     }
   }
 
-  async change(req, res, next) {
+  async update(req, res, next) {
     const productId = req.params.id;
     const productData = req.body;
     try {
-      res.send(await productService.change(productId, productData));
+      res.send(await productService.update(productId, productData));
     } catch (err) {
       return next(new UpdateError("Failed to change product info"));
     }
@@ -37,6 +37,7 @@ class ProductController {
       let params = req.query;
       res.json(await productService.list(params));
     } catch (err) {
+      console.log(err);
       return next(new UpdateError("Failed to print list of products"));
     }
   }
@@ -46,10 +47,26 @@ class ProductController {
       let userId = req.session.user.id;
       let productId = req.params.id;
       let markValue = req.query.value;
+
       await productService.setMark(userId, productId, markValue);
+
       res.send("Mark set successful");
     } catch (err) {
+      console.log(err);
       return next(new UpdateError("Failed to mark product"));
+    }
+  }
+
+  async deleteMark(req, res, next) {
+    try {
+      let userId = req.session.user.id;
+      let productId = req.params.id;
+
+      await productService.deleteMark(userId, productId);
+      res.send("Mark deleted successful");
+    } catch (err) {
+      console.log(err);
+      return next(new UpdateError("Failed to delete mark"));
     }
   }
 }
