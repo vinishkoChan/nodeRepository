@@ -1,4 +1,5 @@
 const sequelize = require("./");
+require("../models");
 
 module.exports = () => {
   sequelize

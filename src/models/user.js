@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database");
-const Mark = require("./mark");
 const bcrypt = require("bcrypt");
 
 const User = sequelize.define("user", {
@@ -48,7 +47,5 @@ User.prototype.validatePassword = function(password) {
   }
   return bcrypt.compareSync(password, this.password);
 };
-
-User.hasMany(Mark, { foreignKey: "user_id" });
 
 module.exports = User;

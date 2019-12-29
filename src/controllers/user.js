@@ -19,6 +19,22 @@ class UserstController {
       return next(new UpdateError("Failed to print list of users"));
     }
   }
+
+  async setRole(req, res, next) {
+    try {
+      const userId = req.params.id;
+      let roleId = 1;
+      if (req.query.value === "admin") {
+        roleId = 2;
+      }
+
+      await userService.setRole(userId, roleId);
+      res.send("Role set successful");
+    } catch (err) {
+      console.log(err);
+      return next(new UpdateError("Failed set role"));
+    }
+  }
 }
 
 module.exports = new UserstController();

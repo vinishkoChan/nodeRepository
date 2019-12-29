@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database");
 
-const DeleteRequest = sequelize.define("delete_request", {
+const UserRole = sequelize.define("users_roles", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -11,7 +11,11 @@ const DeleteRequest = sequelize.define("delete_request", {
   user_id: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  role_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   }
 });
 
-module.exports = DeleteRequest;
+module.exports = UserRole;
