@@ -58,22 +58,19 @@ CREATE TABLE delete_requests (
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO roles (name) VALUES ("user"), ("admin");
-INSERT INTO users (email, password, first_name, last_name) VALUES ("testemail1@gmail.com", "test1", "TestFName1", "TestLName1"), ("sssnnn@gmail.com", "test", "Vasya", "Voin"),  ("testemail2@gmail.com", "test2", "TestFName2", "TestLName2"),  ("testemail3@gmail.com", "test3", "TestFName3", "TestLName3"), ("testemail4@gmail.com", "test4", "TestFName4", "TestLName4"), ("testemail5@gmail.com", "test5", "TestFName5", "TestLName5"), ("testemail6@gmail.com", "test6", "TestFName6", "TestLName6"),("testemail7@gmail.com", "test7", "TestFName7", "TestLName7"), ("testemail8@gmail.com", "test8", "TestFName8", "TestLName8");
- 
-INSERT INTO users_roles (user_id, role_id) VALUES (1, 1);
+INSERT INTO roles (name) VALUES ("user"), ("admin"); 
 INSERT INTO products (name, price, description, image, amount) VALUES 
 ("Bpple iPhone 1", 300,  "Latest iPhone version. Apple.", "no_url", NULL),
-("Apple iPhone 2", 300,  "Latest iPhone version. Apple.", "no_url", 4),
-("Rpple iPhone 3", 300,  "Latest iPhone version. Apple.", "no_url", 13),
+("Apple iPhone 2", 300,  "Latest iPhone version. Apple.", NULL, 4),
+("Rpple iPhone 3", 300,  "Latest iPhone version. Apple.", NULL, 13),
 ("Apple iPhone 4", 300,  "Latest iPhone version. Apple.", "no_url", NULL),
-("Kpple iPhone 5", 300,  "Latest iPhone version. Apple.", "no_url", 4),
-("Ypple iPhone 6", 300,  "Latest iPhone version. Apple.", "no_url", 24),
+("Kpple iPhone 5", 300,  "Latest iPhone version. Apple.", NULL, 4),
+("Ypple iPhone 6", 300,  "Latest iPhone version. Apple.",NULL, 24),
 ("Jpple iPhone 7", 300, "Latest iPhone version. Apple.", "no_url", 4),
 ("Ppple iPhone 8", 300, "Latest iPhone version. Apple.", "no_url", NULL),
 ("Vpple iPhone 9", 300, "Latest iPhone version. Apple.", "no_url", 7),
-("Mpple iPhone 10", 300, "Latest iPhone version. Apple.", "no_url", NULL),
+("Mpple iPhone 10", 300, "Latest iPhone version. Apple.", NULL, NULL),
 ("Qpple iPhone 11", 300, "Latest iPhone version. Apple.", "no_url", 2);
-INSERT INTO marks (user_id, product_id, value) VALUES (1, 1, 5);
+
 
 
