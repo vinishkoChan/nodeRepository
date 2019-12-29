@@ -5,6 +5,14 @@ class UserRoleRepository {
     await UserRole.create({ user_id: userId, role_id: roleId });
   }
 
+  async getRole(userId) {
+    let inst = await UserRole.findOne({
+      where: { user_id: userId },
+      raw: true
+    });
+    return inst.role_id;
+  }
+
   async isLastAdmin(userId) {
     let inst = await UserRole.findOne({
       where: { user_id: userId },

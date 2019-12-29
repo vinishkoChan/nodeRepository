@@ -16,6 +16,7 @@ class UserstController {
     try {
       res.json(await userService.list());
     } catch (err) {
+      console.log(err);
       return next(new UpdateError("Failed to print list of users"));
     }
   }

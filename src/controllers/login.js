@@ -6,10 +6,17 @@ class LoginController {
     passport.authenticate("local", (err, user, info) => {
       if (user) {
         req.session.user = user;
+        req.session.role = user.role;
+
         return res.send("You authorized");
       }
       return next(new UpdateError("Authorization failed"));
     })(req, res, next);
+  }
+
+  logout(req, res, next) {
+    req.session.user = null;
+    res.send("You unauthorized");
   }
 }
 

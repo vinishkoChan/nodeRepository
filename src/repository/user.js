@@ -9,11 +9,24 @@ class UserRepository {
   }
 
   async create(user) {
-    return await User.create(user);
+    let inst = await User.create(user);
+    UserRole.setRole(inst.id, 1);
+    return inst;
   }
 
   async list() {
-    return await User.findAll();
+    let result = await User.findAll();
+
+    for (let obj of result) {
+      let roles = [];
+      let rolesObj = await obj.getRoles();
+
+      rolesObj.forEach(element => {
+        roles.push(element.dataValues.name);
+      });
+      obj.dataValues.roles = roles;
+    }
+    return result;
   }
 
   async delete(id) {
@@ -23,7 +36,6 @@ class UserRepository {
   async setRole(userId, roleId) {
     if (roleId == 1) {
       if (await UserRole.isLastAdmin(userId)) {
-        console.log("Oh, hi, Mark");
         throw new Error("asdasdasd");
       }
     }

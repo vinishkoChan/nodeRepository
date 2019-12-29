@@ -1,4 +1,5 @@
 const User = require("../repository/user");
+const UserRole = require("../repository/userRole");
 
 class UserService {
   async signUp(userData) {
@@ -11,6 +12,7 @@ class UserService {
     if (!user || !user.validatePassword(password)) {
       return next(null, false, "Wrong email or password");
     }
+    user.role = await UserRole.getRole(user.dataValues.id);
 
     return next(null, user);
   }
