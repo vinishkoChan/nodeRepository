@@ -1,12 +1,12 @@
 const express = require("express");
 const loader = require("./loader");
-const connect = require("./database/connect");
+const DataBase = require("./database");
 const app = express();
 const port = 3000;
 
 app.use(loader);
 
-connect();
+DataBase.connect();
 app.listen(port, () => console.log(`Server started at port ${port}`));
 
 module.exports = app;

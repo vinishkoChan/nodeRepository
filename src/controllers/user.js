@@ -8,6 +8,7 @@ class UserstController {
     try {
       res.send(await userService.delete(userId));
     } catch (err) {
+      console.log(err);
       return next(new UpdateError("Failed to delete user"));
     }
   }

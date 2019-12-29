@@ -3,7 +3,7 @@ const UserRole = require("../repository/userRole");
 
 class UserService {
   async signUp(userData) {
-    return await User.create(userData);
+    return await User.create(userData, 1);
   }
 
   async login(email, password, next) {

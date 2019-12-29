@@ -1,6 +1,24 @@
-const Sequelize = require("sequelize");
-const config = require("../config/sequelize");
+const sequelize = require("./sequelize");
+require("../models");
 
-const sequelize = new Sequelize("e_Shop_db", "root", "root", config);
+const userService = require("../services/user");
 
-module.exports = sequelize;
+class DataBase {
+  async connect() {
+    await sequelize.sync();
+    console.log("DB connected");
+
+    let admin = await userService.findUserByEmail("admin@gmail.com");
+    if (!admin) {
+      await userService.addUser(
+        {
+          email: "admin@gmail.com",
+          pass: "admin"
+        },
+        2
+      );
+    }
+  }
+}
+
+module.exports = new DataBase();
