@@ -8,9 +8,9 @@ class UserRepository {
     return user;
   }
 
-  async create(user, role) {
+  async create(user) {
     let inst = await User.create(user);
-    UserRole.setRole(inst.id, role);
+    UserRole.create(inst.id, 1);
     return inst;
   }
 

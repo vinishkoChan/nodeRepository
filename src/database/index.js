@@ -10,13 +10,13 @@ class DataBase {
 
     let admin = await userService.findUserByEmail("admin@gmail.com");
     if (!admin) {
-      await userService.addUser(
-        {
-          email: "admin@gmail.com",
-          pass: "admin"
-        },
-        2
-      );
+      admin = await userService.addUser({
+        email: "admin@gmail.com",
+        password: "admin",
+        first_name: "AdminFName",
+        last_name: "AdminLName"
+      });
+      userService.setRole(admin.id, 2);
     }
   }
 }
