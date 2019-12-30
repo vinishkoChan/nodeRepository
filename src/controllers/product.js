@@ -1,15 +1,18 @@
 const productService = require("../services/product");
 const CreationError = require("../errors/CreationError");
 const UpdateError = require("../errors/UpdateError");
+const DeleteError = require("../errors/deleteError");
+const Response = require("../helpers/response");
 
 class ProductController {
   async create(req, res, next) {
     const productData = req.body;
     try {
-      res.send(await productService.create(productData));
+      await productService.create(productData);
+      res.json(new Response("Creation successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new CreationError("Product Creation Error"));
+      return next(new CreationError("Creation failed"));
     }
   }
 
@@ -17,7 +20,8 @@ class ProductController {
     const productId = req.params.id;
     const productData = req.body;
     try {
-      res.send(await productService.update(productId, productData));
+      await productService.update(productId, productData);
+      res.json(new Response("Update successful", 200));
     } catch (err) {
       return next(new UpdateError("Failed to change product info"));
     }
@@ -26,9 +30,10 @@ class ProductController {
   async delete(req, res, next) {
     const productId = req.params.id;
     try {
-      res.send(await productService.delete(productId));
+      await productService.delete(productId);
+      res.json(new Response("Delete successcul", 200));
     } catch (err) {
-      return next(new UpdateError("Failed to delete product"));
+      return next(new DeleteError("Delete failed"));
     }
   }
 
@@ -38,7 +43,7 @@ class ProductController {
       res.json(await productService.list(params));
     } catch (err) {
       console.log(err);
-      return next(new UpdateError("Failed to print list of products"));
+      return next(new UpdateError("Print failed"));
     }
   }
 
@@ -50,7 +55,7 @@ class ProductController {
 
       await productService.setMark(userId, productId, markValue);
 
-      res.send("Mark set successful");
+      res.json(new Response("Mark set successful", 200));
     } catch (err) {
       console.log(err);
       return next(new UpdateError("Failed to mark product"));
@@ -63,10 +68,10 @@ class ProductController {
       let productId = req.params.id;
 
       await productService.deleteMark(userId, productId);
-      res.send("Mark deleted successful");
+      res.json(new Response("Mark deleted successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new UpdateError("Failed to delete mark"));
+      return next(new DeleteError("Failed to delete mark"));
     }
   }
 }

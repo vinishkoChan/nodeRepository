@@ -1,22 +1,27 @@
 const passport = require("passport");
-const UpdateError = require("../errors/UpdateError");
+const Response = require("../helpers/response");
+const AuthorizationError = require("../errors/AuthorizationError");
 
 class LoginController {
   login(req, res, next) {
-    passport.authenticate("local", (err, user, info) => {
-      if (user) {
-        req.session.user = user;
-        req.session.role = user.role;
+    try {
+      passport.authenticate("local", (err, user, info) => {
+        if (user) {
+          req.session.user = user;
+          req.session.role = user.role;
 
-        return res.send("You authorized");
-      }
-      return next(new UpdateError("Authorization failed"));
-    })(req, res, next);
+          return res.json(new Response("Authorization successful", 200));
+        }
+        return next(new AuthorizationError(info));
+      })(req, res, next);
+    } catch (err) {
+      next(new AuthorizationError("Authorization failed"));
+    }
   }
 
   logout(req, res, next) {
     req.session.user = null;
-    res.send("You unauthorized");
+    res.json(new Response("You unauthorized", 200));
   }
 }
 

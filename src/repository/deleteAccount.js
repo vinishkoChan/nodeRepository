@@ -6,7 +6,6 @@ class DeleteAccountRepository {
   }
 
   async create(id) {
-    console.log(id);
     await DeleteRequest.create({ user_id: id });
     return;
   }

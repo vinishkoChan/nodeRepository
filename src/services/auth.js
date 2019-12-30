@@ -3,7 +3,7 @@ const UserRole = require("../repository/userRole");
 
 class UserService {
   async signUp(userData) {
-    return await User.create(userData, 1);
+    return await User.create(userData);
   }
 
   async login(email, password, next) {
@@ -13,6 +13,9 @@ class UserService {
       return next(null, false, "Wrong email or password");
     }
     user.role = await UserRole.getRole(user.dataValues.id);
+    if (!user.role) {
+      return next(null, false, "Internal error");
+    }
 
     return next(null, user);
   }

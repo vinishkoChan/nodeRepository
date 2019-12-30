@@ -1,15 +1,18 @@
 const userService = require("../services/user");
 const CreationError = require("../errors/CreationError");
 const UpdateError = require("../errors/UpdateError");
+const DeleteError = require("../errors/deleteError");
+const Response = require("../helpers/response");
 
 class UserstController {
   async delete(req, res, next) {
     const userId = req.params.id;
     try {
-      res.send(await userService.delete(userId));
+      await userService.delete(userId);
+      res.json(new Response("Delete successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new UpdateError("Failed to delete user"));
+      return next(new DeleteError("Failed to delete user"));
     }
   }
 
@@ -18,7 +21,7 @@ class UserstController {
       res.json(await userService.list());
     } catch (err) {
       console.log(err);
-      return next(new UpdateError("Failed to print list of users"));
+      return next(new DeleteError("Failed to print list of users"));
     }
   }
 
@@ -31,7 +34,7 @@ class UserstController {
       }
 
       await userService.setRole(userId, roleId);
-      res.send("Role set successful");
+      res.json(new Response("Role set successful", 200));
     } catch (err) {
       console.log(err);
       return next(new UpdateError("Failed set role"));
