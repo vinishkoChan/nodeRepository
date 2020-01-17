@@ -31,7 +31,7 @@ CREATE TABLE products (
     id INT NOT NULL AUTO_INCREMENT,
     `name` varchar(50),
     price DECIMAL NOT NULL,
-    upd_date DATE,
+    update_date DATE,
     `description` TEXT,
     `image` varchar(255),
     amount INT DEFAULT NULL,

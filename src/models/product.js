@@ -16,7 +16,7 @@ const Product = sequelize.define("product", {
     type: Sequelize.DECIMAL,
     allowNull: false
   },
-  upd_date: {
+  update_date: {
     type: Sequelize.DATE
   },
   description: {
@@ -34,7 +34,7 @@ const Product = sequelize.define("product", {
 });
 
 Product.beforeCreate((product, options) => {
-  product.upd_date = new Date();
+  product.update_date = new Date();
 });
 
 module.exports = Product;

@@ -11,7 +11,7 @@ class ProductScheme {
       price: Joi.number()
         .positive()
         .required(),
-      upd_date: Joi.forbidden(),
+      update_date: Joi.forbidden(),
       description: Joi.string(),
       image: Joi.string().max(255),
       amount: Joi.number()
@@ -26,7 +26,7 @@ class ProductScheme {
         .min(3)
         .max(50),
       price: Joi.number().positive(),
-      upd_date: Joi.forbidden(),
+      update_date: Joi.forbidden(),
       description: Joi.string(),
       image: Joi.string().max(255),
       amount: Joi.number()

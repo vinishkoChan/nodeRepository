@@ -8,7 +8,7 @@ class ProductRepository {
   }
 
   async update(id, productData) {
-    productData.upd_date = new Date();
+    productData.update_date = new Date();
     console.log(productData);
     await Product.update(productData, { where: { id: id } });
   }
@@ -50,7 +50,10 @@ class ProductRepository {
       await Mark.create(userId, productId, markValue);
     }
     await Product.update(
-      { mark: await Mark.calculateTotalMark(productId), upd_date: new Date() },
+      {
+        mark: await Mark.calculateTotalMark(productId),
+        update_date: new Date()
+      },
       { where: { id: productId } }
     );
   }
@@ -59,7 +62,10 @@ class ProductRepository {
     await Mark.delete(userId, productId);
 
     await Product.update(
-      { mark: await Mark.calculateTotalMark(productId), upd_date: new Date() },
+      {
+        mark: await Mark.calculateTotalMark(productId),
+        update_date: new Date()
+      },
       { where: { id: productId } }
     );
   }
