@@ -2,7 +2,7 @@ class UpdateError extends Error {
   constructor(message) {
     super(message);
     this.name = "UpdateError";
-    this.status = 500;
+    this.status = 400;
   }
 }
 

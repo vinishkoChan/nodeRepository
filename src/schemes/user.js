@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-class ProductScheme {
+class UserScheme {
   constructor() {
     this.create = Joi.object().keys({
       email: Joi.string()
@@ -18,7 +18,18 @@ class ProductScheme {
         .max(50)
         .required()
     });
+
+    this.login = Joi.object().keys({
+      email: Joi.string()
+        .email()
+        .min(1)
+        .required(),
+      password: Joi.string()
+        .min(4)
+        .max(20)
+        .required()
+    });
   }
 }
 
-module.exports = new ProductScheme();
+module.exports = new UserScheme();

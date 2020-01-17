@@ -7,7 +7,11 @@ const Response = require("../helpers/response");
 class UserstController {
   async delete(req, res, next) {
     const userId = req.params.id;
+
     try {
+      if (req.session.user.id == userId) {
+        throw new Error();
+      }
       await userService.delete(userId);
       res.json(new Response("Delete successful", 200));
     } catch (err) {

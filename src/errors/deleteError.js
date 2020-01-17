@@ -2,7 +2,7 @@ class CreationError extends Error {
   constructor(message) {
     super(message);
     this.name = "DeleteError";
-    this.status = 500;
+    this.status = 400;
   }
 }
 

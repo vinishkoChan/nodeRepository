@@ -2,7 +2,7 @@ class AuthorizationError extends Error {
   constructor(message) {
     super(message);
     this.name = "AuthorizationError";
-    this.status = 500;
+    this.status = 400;
   }
 }
 
