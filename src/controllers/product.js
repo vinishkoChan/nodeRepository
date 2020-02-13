@@ -31,7 +31,7 @@ class ProductController {
     const productId = req.params.id;
     try {
       await productService.delete(productId);
-      res.json(new Response("Delete successcul", 200));
+      res.json(new Response("Delete successful", 200));
     } catch (err) {
       return next(new DeleteError("Delete failed"));
     }

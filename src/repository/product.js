@@ -13,7 +13,10 @@ class ProductRepository {
     await Product.update(productData, { where: { id: id } });
   }
 
-  async delete(id) {
+  async delete(id) {  
+    if(!await Product.findOne({ where: { id: id } })){
+      throw new Error();
+    }
     await Product.destroy({ where: { id: id } });
   }
 

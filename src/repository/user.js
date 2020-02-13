@@ -36,7 +36,7 @@ class UserRepository {
   async setRole(userId, roleId) {
     if (roleId == 1) {
       if (await UserRole.isLastAdmin(userId)) {
-        throw new Error("asdasdasd");
+        throw new Error();
       }
     }
     return UserRole.setRole(userId, roleId);

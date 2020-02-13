@@ -1,8 +1,7 @@
 const Joi = require("joi");
 
-class ProductScheme {
-  constructor() {
-    this.create = Joi.object().keys({
+const ProductScheme = {
+    create: Joi.object().keys({
       name: Joi.string()
         .alphanum()
         .min(3)
@@ -18,9 +17,9 @@ class ProductScheme {
         .integer()
         .positive(),
       mark: Joi.forbidden()
-    });
+    }),
 
-    this.update = Joi.object().keys({
+    update: Joi.object().keys({
       name: Joi.string()
         .alphanum()
         .min(3)
@@ -33,8 +32,7 @@ class ProductScheme {
         .integer()
         .positive(),
       mark: Joi.forbidden()
-    });
-  }
+    })
 }
 
-module.exports = new ProductScheme();
+module.exports = ProductScheme;

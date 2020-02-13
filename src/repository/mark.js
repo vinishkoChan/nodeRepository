@@ -9,6 +9,9 @@ class MarkRepository {
     });
   }
   async delete(userId, productId) {
+    if(!await Mark.findOne({ where: { user_id: userId, product_id: productId } })){
+      throw new Error();
+    }
     await Mark.destroy({
       where: { user_id: userId, product_id: productId }
     });

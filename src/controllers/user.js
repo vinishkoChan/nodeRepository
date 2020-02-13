@@ -1,8 +1,9 @@
 const userService = require("../services/user");
-const CreationError = require("../errors/CreationError");
 const UpdateError = require("../errors/UpdateError");
 const DeleteError = require("../errors/deleteError");
 const Response = require("../helpers/response");
+const constants = require("../constants");
+
 
 class UserstController {
   async delete(req, res, next) {
@@ -32,9 +33,9 @@ class UserstController {
   async setRole(req, res, next) {
     try {
       const userId = req.params.id;
-      let roleId = 1;
+      let roleId = constants.userRole;
       if (req.query.value === "admin") {
-        roleId = 2;
+        roleId = constants.adminRole;
       }
 
       await userService.setRole(userId, roleId);

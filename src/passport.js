@@ -1,6 +1,6 @@
 const localStrategy = require("passport-local").Strategy;
 
-const auth = require("../services/auth");
+const auth = require("./services/auth");
 
 module.exports = function(passport) {
   passport.use(

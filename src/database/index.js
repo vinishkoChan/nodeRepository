@@ -1,4 +1,6 @@
 const sequelize = require("./sequelize");
+const constants = require("../constants");
+
 require("../models");
 
 const userService = require("../services/user");
@@ -16,7 +18,7 @@ class DataBase {
         first_name: "AdminFName",
         last_name: "AdminLName"
       });
-      userService.setRole(admin.id, 2);
+      userService.setRole(admin.id, constants.adminRole);
     }
   }
 }

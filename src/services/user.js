@@ -1,5 +1,5 @@
 const User = require("../repository/user");
-const DeleteRequest = require("../repository/deleteAccount");
+const DeleteRequest = require("../repository/deleteRequest");
 
 class UserService {
   async addUser(userData, role) {
@@ -14,7 +14,7 @@ class UserService {
     if (await DeleteRequest.findRequest(id)) {
       return await User.delete(id);
     } else {
-      throw new Error("ASDasdasdasdadasd");
+      throw new Error();
     }
   }
 

@@ -1,5 +1,6 @@
 const passport = require("passport");
 const Response = require("../helpers/response");
+const authService = require("../services/auth");
 const AuthorizationError = require("../errors/AuthorizationError");
 
 class LoginController {
@@ -22,6 +23,17 @@ class LoginController {
   logout(req, res, next) {
     req.session.user = null;
     res.json(new Response("You unauthorized", 200));
+  }
+
+  async signup(req, res, next) {
+    const userData = req.body;
+    try {
+      await authService.signUp(userData);
+      res.json(new Response("Registration successful", 200));
+    } catch (err) {
+      console.log(err);
+      return next(new AuthorizationError("Registration failed"));
+    }
   }
 }
 

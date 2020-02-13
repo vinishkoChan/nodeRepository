@@ -1,8 +1,7 @@
 const Joi = require("joi");
 
-class UserScheme {
-  constructor() {
-    this.create = Joi.object().keys({
+const UserScheme = {
+    create: Joi.object().keys({
       email: Joi.string()
         .email()
         .max(50)
@@ -17,9 +16,9 @@ class UserScheme {
       last_name: Joi.string()
         .max(50)
         .required()
-    });
+    }),
 
-    this.login = Joi.object().keys({
+    login: Joi.object().keys({
       email: Joi.string()
         .email()
         .min(1)
@@ -28,8 +27,7 @@ class UserScheme {
         .min(4)
         .max(20)
         .required()
-    });
-  }
+    })
 }
 
-module.exports = new UserScheme();
+module.exports = UserScheme;
