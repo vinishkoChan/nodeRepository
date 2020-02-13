@@ -1,11 +1,9 @@
 const userService = require("../services/user");
-const UpdateError = require("../errors/UpdateError");
-const DeleteError = require("../errors/deleteError");
 const Response = require("../helpers/response");
 const constants = require("../constants");
 
 
-class UserstController {
+class UserController {
   async delete(req, res, next) {
     const userId = req.params.id;
 
@@ -17,7 +15,7 @@ class UserstController {
       res.json(new Response("Delete successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new DeleteError("Failed to delete user"));
+      return next(err);
     }
   }
 
@@ -26,25 +24,27 @@ class UserstController {
       res.json(await userService.list());
     } catch (err) {
       console.log(err);
-      return next(new DeleteError("Failed to print list of users"));
+      return next(err);
     }
   }
 
   async setRole(req, res, next) {
     try {
       const userId = req.params.id;
-      let roleId = constants.userRole;
-      if (req.query.value === "admin") {
-        roleId = constants.adminRole;
+      let roleId = constants.userRoleNum;
+      if (req.query.value === constants.adminRoleText) {
+        roleId = constants.adminRoleNum;
+      }else if(req.query.value === constants.userRoleText){
+        roleId = constants.userRoleNum;
       }
 
       await userService.setRole(userId, roleId);
       res.json(new Response("Role set successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new UpdateError("Failed set role"));
+      return next(err);
     }
   }
 }
 
-module.exports = new UserstController();
+module.exports = new UserController();

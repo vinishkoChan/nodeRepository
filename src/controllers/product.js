@@ -1,7 +1,5 @@
 const productService = require("../services/product");
-const CreationError = require("../errors/CreationError");
-const UpdateError = require("../errors/UpdateError");
-const DeleteError = require("../errors/deleteError");
+const NotAcceptableError = require("../errors/NotAcceptableError");
 const Response = require("../helpers/response");
 
 class ProductController {
@@ -12,7 +10,7 @@ class ProductController {
       res.json(new Response("Creation successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new CreationError("Creation failed"));
+      return next(new NotAcceptableError("Creation failed"));
     }
   }
 
@@ -23,7 +21,7 @@ class ProductController {
       await productService.update(productId, productData);
       res.json(new Response("Update successful", 200));
     } catch (err) {
-      return next(new UpdateError("Failed to change product info"));
+      return next(err);
     }
   }
 
@@ -33,7 +31,7 @@ class ProductController {
       await productService.delete(productId);
       res.json(new Response("Delete successful", 200));
     } catch (err) {
-      return next(new DeleteError("Delete failed"));
+      return next(err);
     }
   }
 
@@ -43,7 +41,7 @@ class ProductController {
       res.json(await productService.list(params));
     } catch (err) {
       console.log(err);
-      return next(new UpdateError("Print failed"));
+      return next(err);
     }
   }
 
@@ -58,7 +56,7 @@ class ProductController {
       res.json(new Response("Mark set successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new UpdateError("Failed to mark product"));
+      return next(err);
     }
   }
 
@@ -71,7 +69,7 @@ class ProductController {
       res.json(new Response("Mark deleted successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new DeleteError("Failed to delete mark"));
+      return next(err);
     }
   }
 }

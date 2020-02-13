@@ -18,7 +18,7 @@ class DataBase {
         first_name: "AdminFName",
         last_name: "AdminLName"
       });
-      userService.setRole(admin.id, constants.adminRole);
+      userService.setRole(admin.id, constants.adminRoleNum);
     }
   }
 }

@@ -1,4 +1,6 @@
 const Mark = require("../models/mark");
+const NotAcceptableError = require("../errors/NotAcceptableError");
+
 
 class MarkRepository {
   async create(userId, productId, markValue) {
@@ -10,7 +12,7 @@ class MarkRepository {
   }
   async delete(userId, productId) {
     if(!await Mark.findOne({ where: { user_id: userId, product_id: productId } })){
-      throw new Error();
+      throw new NotAcceptableError("Mark doesn't exists");
     }
     await Mark.destroy({
       where: { user_id: userId, product_id: productId }

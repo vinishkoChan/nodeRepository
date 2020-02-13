@@ -1,4 +1,5 @@
 const User = require("../repository/user");
+const NotAcceptableError = require("../errors/NotAcceptableError");
 const DeleteRequest = require("../repository/deleteRequest");
 
 class UserService {
@@ -14,7 +15,7 @@ class UserService {
     if (await DeleteRequest.findRequest(id)) {
       return await User.delete(id);
     } else {
-      throw new Error();
+      throw new NotAcceptableError("Request doesn't exists");
     }
   }
 

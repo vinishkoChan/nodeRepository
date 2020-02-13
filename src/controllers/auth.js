@@ -1,7 +1,8 @@
 const passport = require("passport");
 const Response = require("../helpers/response");
 const authService = require("../services/auth");
-const AuthorizationError = require("../errors/AuthorizationError");
+const UnauthorizedError = require("../errors/UnauthorizedError");
+const NotAcceptableError = require("../errors/NotAcceptableError");
 
 class LoginController {
   login(req, res, next) {
@@ -13,10 +14,10 @@ class LoginController {
 
           return res.json(new Response("Authorization successful", 200));
         }
-        return next(new AuthorizationError(info));
+        return next(err);
       })(req, res, next);
     } catch (err) {
-      next(new AuthorizationError("Authorization failed"));
+      next(err);
     }
   }
 
@@ -32,7 +33,7 @@ class LoginController {
       res.json(new Response("Registration successful", 200));
     } catch (err) {
       console.log(err);
-      return next(new AuthorizationError("Registration failed"));
+      return next(err);
     }
   }
 }

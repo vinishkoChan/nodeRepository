@@ -1,6 +1,7 @@
 const Product = require("../models/product");
 const Op = require("sequelize").Op;
 const Mark = require("./mark");
+const NotAcceptableError = require("../errors/NotAcceptableError");
 
 class ProductRepository {
   async create(product) {
@@ -15,7 +16,7 @@ class ProductRepository {
 
   async delete(id) {  
     if(!await Product.findOne({ where: { id: id } })){
-      throw new Error();
+      throw new NotAcceptableError("Product doesn't exists");
     }
     await Product.destroy({ where: { id: id } });
   }

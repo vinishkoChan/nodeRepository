@@ -1,7 +1,11 @@
 const constants = {
-    userRole: 1,
+    userRoleNum: 1,
 
-    adminRole: 2
+    adminRoleNum: 2,
+
+    userRoleText: "user",
+
+    adminRoleText: "admin"
 
 }
 

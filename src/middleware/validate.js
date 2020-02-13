@@ -1,13 +1,13 @@
 const Joi = require("joi");
 
-const IncorrectDataError = require("../errors/IncorrectDataError");
+const NotAcceptableError = require("../errors/NotAcceptableError");
 
 module.exports = schema => {
   return (req, res, next) => {
     const isNotValid = Joi.validate(req.body, schema).error;
 
     if (isNotValid) {
-      next(new IncorrectDataError(isNotValid.message));
+      next(new NotAcceptableError(isNotValid.message));
     }
 
     next();

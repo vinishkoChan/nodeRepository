@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const UserRole = require("./userRole");
+const NotAcceptableError = require("../errors/NotAcceptableError");
+
 
 class UserRepository {
   async findUser(email) {
@@ -36,7 +38,7 @@ class UserRepository {
   async setRole(userId, roleId) {
     if (roleId == 1) {
       if (await UserRole.isLastAdmin(userId)) {
-        throw new Error();
+        throw new NotAcceptableError("Can't delete last admin");
       }
     }
     return UserRole.setRole(userId, roleId);
