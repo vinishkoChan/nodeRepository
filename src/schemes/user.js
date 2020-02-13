@@ -27,6 +27,11 @@ const UserScheme = {
         .min(4)
         .max(20)
         .required()
+    }),
+
+    update: Joi.object().keys({
+      first_name: Joi.string().max(50),
+      last_name: Joi.string().max(50)
     })
 }
 

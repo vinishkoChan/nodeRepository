@@ -10,6 +10,10 @@ class UserRepository {
     return user;
   }
 
+  update(id, userData){
+    return User.update(userData, {where: {id: id}});
+  }
+
   async create(user) {
     let inst = await User.create(user);
     UserRole.create(inst.id, 1);

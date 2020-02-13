@@ -1,8 +1,6 @@
 const passport = require("passport");
 const Response = require("../helpers/response");
 const authService = require("../services/auth");
-const UnauthorizedError = require("../errors/UnauthorizedError");
-const NotAcceptableError = require("../errors/NotAcceptableError");
 
 class LoginController {
   login(req, res, next) {
