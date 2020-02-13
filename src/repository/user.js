@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const UserRole = require("./userRole");
 const NotAcceptableError = require("../errors/NotAcceptableError");
+const bcrypt = require("bcrypt");
 
 
 class UserRepository {
@@ -10,7 +11,20 @@ class UserRepository {
     return user;
   }
 
-  update(id, userData){
+  async update(id, userData){
+    return User.update(userData, {where: {id: id}});
+  }
+
+  async changePassword(id, passwords){
+    console.log("Old = " + passwords.oldPassword + " New = " + passwords.newPassword);
+    const user = await User.findOne({where: {id: id}});
+    const oldIsCorrect = user.validatePassword(passwords.oldPassword);
+    let userData = new Object();
+    if(oldIsCorrect){
+      userData.password = bcrypt.hashSync(passwords.newPassword, bcrypt.genSaltSync(8));
+    } else {
+      throw new NotAcceptableError("Incorrect old password");
+    }
     return User.update(userData, {where: {id: id}});
   }
 

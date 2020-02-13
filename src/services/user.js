@@ -7,6 +7,14 @@ class UserService {
     return await User.create(userData, role);
   }
 
+  update(id, userData) {
+    return User.update(id, userData);
+  }
+
+  changePassword(id, passwords){
+    return User.changePassword(id, passwords);
+  }
+
   async findUserByEmail(email) {
     return await User.findUser(email);
   }

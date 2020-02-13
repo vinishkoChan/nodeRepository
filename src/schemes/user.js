@@ -32,6 +32,17 @@ const UserScheme = {
     update: Joi.object().keys({
       first_name: Joi.string().max(50),
       last_name: Joi.string().max(50)
+    }),
+
+    changePassword: Joi.object().keys({
+      oldPassword: Joi.string()
+      .min(4)
+      .max(20)
+      .required(),
+      newPassword: Joi.string()
+      .min(4)
+      .max(20)
+      .required()
     })
 }
 
