@@ -6,7 +6,11 @@ const port = 3000;
 
 app.use(loader);
 
-DataBase.connect();
-app.listen(port, () => console.log(`Server started at port ${port}`));
+async function start(){
+    await DataBase.connect();
+    app.listen(port, () => console.log(`Server started at port ${port}`));
+}
+
+start();
 
 module.exports = app;
