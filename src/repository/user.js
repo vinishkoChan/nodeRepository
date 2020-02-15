@@ -5,7 +5,6 @@ const constants = require("../constants");
 const bcrypt = require("bcrypt");
 
 
-
 class UserRepository {
   findUserByEmail(email) {
 
@@ -39,13 +38,20 @@ class UserRepository {
     return User.update(userData, {where: {id: id}});
   }
 
-  async create(user) {
+  async create(userData) {
+    let user = null;
+    try{
+    user = await User.create(userData);
+    } catch(err){
+      if(err.parent.errno){
+        throw new NotAcceptableError("User already exists");
+      }
+      throw new Error("Failed to add new user");
+    }
 
-    let inst = await User.create(user);
+    UserRole.create(user.id, 1);
 
-    UserRole.create(inst.id, 1);
-
-    return inst;
+    return user;
   }
 
   async list(page) {
