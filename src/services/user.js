@@ -16,7 +16,11 @@ class UserService {
   }
 
   async findUserByEmail(email) {
-    return await User.findUser(email);
+    return await User.findUserByEmail(email);
+  }
+
+  async findUserById(id){
+    return await User.findUserById(id);
   }
 
   async delete(id) {

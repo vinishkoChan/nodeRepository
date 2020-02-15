@@ -1,8 +1,8 @@
 const express = require("express");
 const loader = require("./loader");
 const DataBase = require("./database");
+const port = require("./config").app.port;
 const app = express();
-const port = 3000;
 
 app.use(loader);
 

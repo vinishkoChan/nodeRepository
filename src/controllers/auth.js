@@ -9,7 +9,7 @@ class LoginController {
         if (user) {
           req.session.user = user;
           req.session.role = user.role;
-
+          
           return res.json(new Response("Authorization successful", 200));
         }
         return next(err);

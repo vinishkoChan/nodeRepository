@@ -8,7 +8,7 @@ class UserService {
   }
 
   async login(email, password, next) {
-    const user = await User.findUser(email);
+    const user = await User.findUserByEmail(email);
 
     if (!user || !user.validatePassword(password)) {
       return next(new UnauthorizedError("Wrong email or password"), false);

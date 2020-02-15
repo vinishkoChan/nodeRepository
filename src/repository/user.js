@@ -7,14 +7,22 @@ const bcrypt = require("bcrypt");
 
 
 class UserRepository {
-  async findUser(email) {
-    const user = await User.findOne({ where: { email: email } });
+  findUserByEmail(email) {
 
-    return user;
+    return User.findOne({ where: { email: email } });
+
+  }
+
+  findUserById(id) {
+
+    return User.findOne({ where: { id: id } });
+
   }
 
   async update(id, userData){
+
     return User.update(userData, {where: {id: id}});
+
   }
 
   async changePassword(id, passwords){
@@ -22,7 +30,7 @@ class UserRepository {
     const user = await User.findOne({where: {id: id}});
     const oldIsCorrect = user.validatePassword(passwords.oldPassword);
     let userData = new Object();
-    
+
     if(oldIsCorrect){
       userData.password = bcrypt.hashSync(passwords.newPassword, bcrypt.genSaltSync(8));
     } else {
@@ -32,12 +40,16 @@ class UserRepository {
   }
 
   async create(user) {
+
     let inst = await User.create(user);
+
     UserRole.create(inst.id, 1);
+
     return inst;
   }
 
   async list(page) {
+
     let result = null;
     const usersOnPage = constants.usersOnPage;
 
@@ -63,7 +75,9 @@ class UserRepository {
   }
 
   async delete(id) {
+
     return await User.destroy({ where: { id: id } });
+    
   }
 
   async setRole(userId, roleId) {
