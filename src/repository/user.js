@@ -1,7 +1,9 @@
 const User = require("../models/user");
 const UserRole = require("./userRole");
 const NotAcceptableError = require("../errors/NotAcceptableError");
+const constants = require("../constants");
 const bcrypt = require("bcrypt");
+
 
 
 class UserRepository {
@@ -16,10 +18,11 @@ class UserRepository {
   }
 
   async changePassword(id, passwords){
-    console.log("Old = " + passwords.oldPassword + " New = " + passwords.newPassword);
+
     const user = await User.findOne({where: {id: id}});
     const oldIsCorrect = user.validatePassword(passwords.oldPassword);
     let userData = new Object();
+    
     if(oldIsCorrect){
       userData.password = bcrypt.hashSync(passwords.newPassword, bcrypt.genSaltSync(8));
     } else {
@@ -34,18 +37,28 @@ class UserRepository {
     return inst;
   }
 
-  async list() {
-    let result = await User.findAll();
+  async list(page) {
+    let result = null;
+    const usersOnPage = constants.usersOnPage;
+
+    if(page){
+      result = await User.findAll({offset: page * usersOnPage - usersOnPage, limit: 2});
+    }
+    else {
+      result = await User.findAll();
+    }
 
     for (let obj of result) {
       let roles = [];
       let rolesObj = await obj.getRoles();
 
       rolesObj.forEach(element => {
-        roles.push(element.dataValues.name);
+        roles.push(element.dataValues.name); 
       });
+
       obj.dataValues.roles = roles;
     }
+
     return result;
   }
 
@@ -55,9 +68,11 @@ class UserRepository {
 
   async setRole(userId, roleId) {
     if (roleId == 1) {
+
       if (await UserRole.isLastAdmin(userId)) {
         throw new NotAcceptableError("Can't delete last admin");
       }
+
     }
     return UserRole.setRole(userId, roleId);
   }

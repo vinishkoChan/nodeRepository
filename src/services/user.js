@@ -27,8 +27,8 @@ class UserService {
     }
   }
 
-  async list() {
-    return await User.list();
+  async list(page) {
+    return await User.list(page);
   }
 
   async setRole(userId, roleId) {

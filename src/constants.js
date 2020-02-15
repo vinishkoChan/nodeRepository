@@ -5,7 +5,9 @@ const constants = {
 
     userRoleText: "user",
 
-    adminRoleText: "admin"
+    adminRoleText: "admin",
+
+    usersOnPage: 2
 
 }
 
