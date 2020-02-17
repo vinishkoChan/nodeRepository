@@ -60,7 +60,7 @@ class UserRepository {
     const usersOnPage = constants.usersOnPage;
 
     if(page){
-      result = await User.findAll({offset: page * usersOnPage - usersOnPage, limit: 2});
+      result = await User.findAll({offset: page * usersOnPage - usersOnPage, limit: usersOnPage});
     }
     else {
       result = await User.findAll();

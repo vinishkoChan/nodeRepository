@@ -1,6 +1,7 @@
 const Product = require("../models/product");
 const sequelize = require("sequelize");
 const Mark = require("./mark");
+const constants = require("../constants");
 const NotAcceptableError = require("../errors/NotAcceptableError");
 
 const Op = sequelize.Op;
@@ -36,14 +37,31 @@ class ProductRepository {
   }
 
   async list(params) {
+
+    const productsOnPage = constants.productsOnPage;
+    let offset = null, limit = null;
     let where = {};
     let orderBy = [["id", "ASC"]]
 
     if (params.imgOnly) {
+
       where.image = { [Op.ne]: null };
+
     }
+
     if (params.orderBy) {
+
       orderBy = [[params.orderBy, "ASC"]];
+
+    }
+
+    if(params.page){
+
+      let page = params.page;
+
+      offset = page * productsOnPage - productsOnPage;
+      limit =  productsOnPage;
+
     }
 
     let result = await Product.findAll({
@@ -52,7 +70,9 @@ class ProductRepository {
           sequelize.fn('isnull', sequelize.col('amount')),
           orderBy
       ],
-      raw: true
+      raw: true,
+      offset: offset,
+      limit: limit
     });
 
     for (let obj of result) {

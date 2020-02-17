@@ -7,7 +7,9 @@ const constants = {
 
     adminRoleText: "admin",
 
-    usersOnPage: 2
+    usersOnPage: 2,
+
+    productsOnPage: 2
 
 }
 
