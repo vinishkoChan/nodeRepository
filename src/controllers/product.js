@@ -17,7 +17,17 @@ class ProductController {
 
   async search(req, res, next) {
 
-    
+    try{
+
+      let tag = req.query.tag;
+
+      res.json(await productService.search(tag));
+
+    }catch(err){
+
+      next(err);
+
+    }
 
   }
 

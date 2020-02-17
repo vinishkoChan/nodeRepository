@@ -50,6 +50,35 @@ class UserController {
     }
   }
 
+  async search(req, res, next){
+
+    try{
+      let criteria = {};
+      if(req.query.firstName){
+
+        criteria.name = "first_name";
+        criteria.value = req.query.firstName;
+
+      }else if(req.query.lastName){
+
+        criteria.name = "last_name";
+        criteria.value = req.query.lastName;
+
+      }else if(req.query.email){
+
+        criteria.name = "email";
+        criteria.value = req.query.email;
+
+      }
+
+      res.json(await userService.search(criteria));
+
+    }catch(err){
+        next(err);
+    }
+
+  }
+
   async setRole(req, res, next) {
 
     try {

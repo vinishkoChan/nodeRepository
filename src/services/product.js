@@ -1,12 +1,17 @@
 const Product = require("../repository/product");
 
 class ProductService {
+  
   async create(product) {
     return await Product.create(product);
   }
 
   read(id) {
     return Product.read(id);
+  }
+
+  search(tagName){
+    return Product.search(tagName);
   }
 
   async update(id, productData) {

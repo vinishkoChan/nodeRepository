@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const UserRole = require("./userRole");
 const NotAcceptableError = require("../errors/NotAcceptableError");
+const NotFound = require("../errors/NotFoundError");
 const constants = require("../constants");
 const bcrypt = require("bcrypt");
 
@@ -78,6 +79,26 @@ class UserRepository {
     }
 
     return result;
+  }
+
+  async search(criteria){
+
+    if(!criteria){
+
+      throw new NotAcceptableError("Wrong search parameters");
+
+    }
+
+    let result = await User.findOne({where: {[criteria.name]: criteria.value}});
+
+    if(!result){
+
+      throw new NotFound("Users not found");
+
+    }
+
+    return result;
+
   }
 
   async delete(id) {

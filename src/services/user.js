@@ -15,6 +15,12 @@ class UserService {
     return User.changePassword(id, passwords);
   }
 
+  search(criteria){
+
+    return User.search(criteria);
+
+  }
+
   async findUserByEmail(email) {
     return await User.findUserByEmail(email);
   }

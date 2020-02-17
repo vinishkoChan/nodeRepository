@@ -1,6 +1,7 @@
 const Product = require("../models/product");
 const sequelize = require("sequelize");
 const Mark = require("./mark");
+const Tag = require("./tag");
 const constants = require("../constants");
 const NotAcceptableError = require("../errors/NotAcceptableError");
 
@@ -20,6 +21,14 @@ class ProductRepository {
 
     return await Product.findByPk(id);
     
+  }
+
+  async search(tagName){
+
+    const tag = await Tag.readByTagName(tagName);
+
+    return tag.getProducts();
+
   }
 
   async update(id, productData) {

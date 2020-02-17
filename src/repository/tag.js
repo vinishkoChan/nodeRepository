@@ -37,7 +37,7 @@ class TagRepository {
   }
 
   async readByTagName(name) {
-    return await Tag.findOne({where: {name: name}, raw: true});
+    return await Tag.findOne({where: {name: name}});
   }
 
 }
