@@ -1,7 +1,9 @@
 const Product = require("../models/product");
-const Op = require("sequelize").Op;
+const sequelize = require("sequelize");
 const Mark = require("./mark");
 const NotAcceptableError = require("../errors/NotAcceptableError");
+
+const Op = sequelize.Op;
 
 class ProductRepository {
 
@@ -34,23 +36,24 @@ class ProductRepository {
   }
 
   async list(params) {
-    let object = new Object();
-    object.where = {};
-    object.raw = true;
+    let where = {};
+    let orderBy = [["id", "ASC"]]
+
     if (params.imgOnly) {
-      object.where.image = { [Op.ne]: null };
+      where.image = { [Op.ne]: null };
     }
     if (params.orderBy) {
-      object.order = [[params.orderBy, "ASC"]];
+      orderBy = [[params.orderBy, "ASC"]];
     }
 
-    object.where.amount = { [Op.ne]: null };
-    let noNulls = await Product.findAll(object);
-
-    object.where.amount = null;
-    let withNulls = await Product.findAll(object);
-
-    let result = noNulls.concat(withNulls);
+    let result = await Product.findAll({
+      where,
+      order: [
+          sequelize.fn('isnull', sequelize.col('amount')),
+          orderBy
+      ],
+      raw: true
+    });
 
     for (let obj of result) {
       obj["Amount of marks"] = await Mark.countMarks(obj.id);
