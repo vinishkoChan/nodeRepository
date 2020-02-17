@@ -3,6 +3,7 @@ const NotAcceptableError = require("../errors/NotAcceptableError");
 const Response = require("../helpers/response");
 
 class ProductController {
+
   async create(req, res, next) {
     const productData = req.body;
     try {
@@ -12,6 +13,12 @@ class ProductController {
       console.log(err);
       return next(new NotAcceptableError("Creation failed"));
     }
+  }
+
+  async search(req, res, next) {
+
+    
+
   }
 
   async update(req, res, next) {

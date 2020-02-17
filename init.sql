@@ -47,7 +47,21 @@ CREATE TABLE marks (
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
+CREATE TABLE tags (
+    id INT NOT NULL AUTO_INCREMENT,
+    `name` varchar(20) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE products_tags (
+    id INT NOT NULL AUTO_INCREMENT,
+    product_id INT NOT NULL,
+    tag_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE delete_requests (

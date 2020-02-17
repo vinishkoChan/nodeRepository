@@ -5,6 +5,10 @@ class ProductService {
     return await Product.create(product);
   }
 
+  read(id) {
+    return Product.read(id);
+  }
+
   async update(id, productData) {
     return await Product.update(id, productData);
   }

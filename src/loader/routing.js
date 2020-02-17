@@ -10,12 +10,14 @@ const accountRouter = require("../routes/account");
 const signupRouter = require("../routes/signup");
 const usersRouter = require("../routes/user");
 const requestForDeleteRouter = require("../routes/deleteRequest");
+const tagRouter = require("../routes/tag");
 const isAuthorized = require("../middleware/isAuthorized");
 const isAdmin = require("../middleware/isAdmin");
 
 router.use("/signup", signupRouter);
 router.use("/login", loginRouter);
 router.use(isAuthorized);
+router.use("/tag", tagRouter);
 router.use("/account", accountRouter);
 router.use("/logout", logoutRouter);
 router.use("/product", productRouter);

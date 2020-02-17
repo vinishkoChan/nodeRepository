@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/sequelize");
 
-const ProductTag = sequelize.define("users_roles", {
+const ProductTag = sequelize.define("products_tags", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,

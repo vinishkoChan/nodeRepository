@@ -8,10 +8,6 @@ const Tag = sequelize.define("tags", {
     primaryKey: true,
     allowNull: false
   },
-  product_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
   name: {
     type: Sequelize.STRING,
     allowNull: false

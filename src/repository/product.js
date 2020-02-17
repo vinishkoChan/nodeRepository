@@ -4,14 +4,26 @@ const Mark = require("./mark");
 const NotAcceptableError = require("../errors/NotAcceptableError");
 
 class ProductRepository {
+
   async create(product) {
     return await Product.create(product);
   }
 
+  async read(id){
+
+    if(!await Product.findByPk(id)){
+      throw new NotAcceptableError("Product doesn't exists");
+    }
+
+    return await Product.findByPk(id);
+    
+  }
+
   async update(id, productData) {
+
     productData.update_date = new Date();
-    console.log(productData);
-    await Product.update(productData, { where: { id: id } });
+    
+    return await Product.update(productData, { where: { id: id } });
   }
 
   async delete(id) {  
