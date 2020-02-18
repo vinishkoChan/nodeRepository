@@ -44,6 +44,25 @@ class UserService {
   async setRole(userId, roleId) {
     return User.setRole(userId, roleId);
   }
+
+  async automaticDelete() {
+
+    const requests = await DeleteRequest.findAll();
+    const currentDate = new Date();
+
+    for(let req of requests) {
+
+      const diff = (currentDate - req.createdAt) / 60000;
+
+      if (diff > 5) {
+
+        await User.delete(req.user_id);
+
+      }
+
+    }
+  }
+
 }
 
 module.exports = new UserService();

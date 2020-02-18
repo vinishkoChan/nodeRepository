@@ -91,6 +91,8 @@ class UserRepository {
 
     let result = await User.findOne({where: {[criteria.name]: criteria.value}});
 
+    console.log(result);
+
     if(!result){
 
       throw new NotFound("Users not found");

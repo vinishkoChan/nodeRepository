@@ -53,7 +53,7 @@ class UserController {
   async search(req, res, next){
 
     try{
-      let criteria = {};
+      const criteria = {};
       if(req.query.firstName){
 
         criteria.name = "first_name";

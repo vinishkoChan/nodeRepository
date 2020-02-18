@@ -12,6 +12,18 @@ const DeleteRequest = sequelize.define("delete_request", {
     type: Sequelize.INTEGER,
     allowNull: false
   }
+  ,
+  createdAt: {
+    type: Sequelize.DATE,
+    field: 'created_at'
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    field: 'updated_at'
+  }
+},
+{
+  timestamps:true
 });
 
 module.exports = DeleteRequest;
