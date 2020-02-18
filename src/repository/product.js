@@ -4,6 +4,7 @@ const Mark = require("./mark");
 const Tag = require("./tag");
 const constants = require("../constants");
 const NotAcceptableError = require("../errors/NotAcceptableError");
+const fs = require('fs');
 
 const Op = sequelize.Op;
 

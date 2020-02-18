@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.get("/", productController.list);
 router.get("/search", productController.search);
+router.get("/:id/image", productController.getImage);
 router.put("/:id/mark", isUser, productController.setMark);
 router.delete("/:id/mark", isUser, productController.deleteMark);
 router.use(isAdmin);

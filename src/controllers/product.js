@@ -1,6 +1,7 @@
 const productService = require("../services/product");
 const NotAcceptableError = require("../errors/NotAcceptableError");
 const Response = require("../helpers/response");
+const fileHandler = require("../helpers/fileHandler");
 
 class ProductController {
 
@@ -26,6 +27,26 @@ class ProductController {
     }catch(err){
 
       next(err);
+
+    }
+
+  }
+
+  async getImage(req, res, next) {
+
+    try{
+
+      const id = req.params.id; 
+
+      const product = await productService.read(id);
+
+      const imageName = product.image;
+      
+      fileHandler.getImage(imageName, res);
+
+    }catch (err) {
+      console.log(err)
+      return next(err);
 
     }
 
