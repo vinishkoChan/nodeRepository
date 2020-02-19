@@ -1,6 +1,9 @@
 #Modules
 node_modules/
 
+#resources
+src/resources
+
 #BD scheme
 *.jpg
 
