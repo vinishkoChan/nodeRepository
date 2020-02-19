@@ -2,6 +2,7 @@ const productService = require("../services/product");
 const NotAcceptableError = require("../errors/NotAcceptableError");
 const Response = require("../helpers/response");
 const fileHandler = require("../helpers/fileHandler");
+const NotFoundError = require("../errors/NotFoundError");
 
 class ProductController {
 
@@ -41,11 +42,50 @@ class ProductController {
       const product = await productService.read(id);
 
       const imageName = product.image;
+
+      if(!imageName){
+
+        throw new NotFoundError("File not found");
+
+      }
       
-      fileHandler.getImage(imageName, res);
+      fileHandler.get(imageName, res);
 
     }catch (err) {
       console.log(err)
+      return next(err);
+
+    }
+  }
+
+  async setImage(req, res, next) {
+
+    try{
+
+      const productId = req.params.id; 
+      const productData = {
+
+        image: req.file.filename
+
+      }
+
+      const product = await productService.read(productId);
+      const oldImageName = product.image;
+
+      if(oldImageName && oldImageName !== "no_url"){
+
+        fileHandler.delete(oldImageName);
+
+      }
+      await productService.update(productId, productData);
+      
+      res.json(new Response("Image added successful", 200));
+
+    }catch (err) {
+      console.log(err)
+
+      fileHandler.delete(req.file.filename);
+
       return next(err);
 
     }
