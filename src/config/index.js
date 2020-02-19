@@ -10,13 +10,20 @@ module.exports = {
     resDir: process.env.RESOURCE_DIR
   },
 
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, process.env.RESOURCE_DIR)
-    },
-    filename: function (req, file, cb) {
-      cb(null, "product" + req.params.id + "image-" + Date.now())
+  storage: multer.diskStorage(
+    {
+      destination: function (req, file, cb) {
+
+        cb(null, process.env.RESOURCE_DIR);
+
+      },
+
+      filename: function (req, file, cb) {
+
+        cb(null, "product" + req.params.id + "image-" + Date.now());
+
+      }
     }
-  })
+  )
 
 };

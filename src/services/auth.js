@@ -1,25 +1,42 @@
 const User = require("../repository/user");
 const UserRole = require("../repository/userRole");
-const UnauthorizedError  =  require("../errors/UnauthorizedError")
+const UnauthorizedError  =  require("../errors/UnauthorizedError");
+const constants = require("../constants");
 
-class UserService {
+class AuthService {
+
   async signUp(userData) {
-    return await User.create(userData);
+
+    const user = await User.create(userData);
+
+    if(user) {
+
+      UserRole.create(user.id, constants.userRoleNum);
+
+    }
   }
 
   async login(email, password, next) {
+
     const user = await User.findUserByEmail(email);
 
     if (!user || !user.validatePassword(password)) {
+
       return next(new UnauthorizedError("Wrong email or password"), false);
+
     }
-    user.role = await UserRole.getRole(user.dataValues.id);
+
+    user.role = await UserRole.getRoleId(user.dataValues.id);
+
     if (!user.role) {
+      
       return next(new Error(), false);
+
     }
 
     return next(null, user);
+    
   }
 }
 
-module.exports = new UserService();
+module.exports = new AuthService();

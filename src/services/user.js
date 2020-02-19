@@ -1,18 +1,21 @@
 const User = require("../repository/user");
+const UserRole = require("../repository/userRole");
 const NotAcceptableError = require("../errors/NotAcceptableError");
 const DeleteRequest = require("../repository/deleteRequest");
+const constants = require("../constants");
 
 class UserService {
-  async addUser(userData, role) {
-    return await User.create(userData, role);
-  }
 
   update(id, userData) {
+
     return User.update(id, userData);
+
   }
 
   changePassword(id, passwords){
+
     return User.changePassword(id, passwords);
+
   }
 
   search(criteria){
@@ -22,27 +25,49 @@ class UserService {
   }
 
   async findUserByEmail(email) {
+
     return await User.findUserByEmail(email);
+
   }
 
   async findUserById(id){
+
     return await User.findUserById(id);
+
   }
 
   async delete(id) {
+
     if (await DeleteRequest.findRequest(id)) {
+
       return await User.delete(id);
+
     } else {
+
       throw new NotAcceptableError("Request doesn't exists");
+
     }
   }
 
   async list(page) {
+
     return await User.list(page);
+
   }
 
   async setRole(userId, roleId) {
-    return User.setRole(userId, roleId);
+
+    if (roleId == constants.userRoleNum) {
+
+      if (await UserRole.isLastAdmin(userId)) {
+
+        throw new NotAcceptableError("Can't delete last admin");
+        
+      }
+    }
+
+    return UserRole.setRole(userId, roleId);
+
   }
 
   async automaticDelete() {
@@ -59,10 +84,8 @@ class UserService {
         await User.delete(req.user_id);
 
       }
-
     }
   }
-
 }
 
 module.exports = new UserService();

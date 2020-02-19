@@ -4,13 +4,25 @@ const dir = require("../config").app.resDir;
 
 class FileHandler {
 
-    get(fileName, res) {
+    get(fileName, res, next) {
 
         try{
         
-        fs.createReadStream(`${dir}/${fileName}`).pipe(res);
+            const readStream = fs.createReadStream(`${dir}/${fileName}`);
 
-        }catch(err){
+            readStream.on('open', () => {
+
+                readStream.pipe(res);
+
+            });
+
+            readStream.on('error', (err) => {
+
+                next(err);
+
+            });
+
+        } catch(err){
 
             throw err;
 

@@ -10,7 +10,6 @@ const accountRouter = require("../routes/account");
 const signupRouter = require("../routes/signup");
 const usersRouter = require("../routes/user");
 const requestForDeleteRouter = require("../routes/deleteRequest");
-const tagRouter = require("../routes/tag");
 const isAuthorized = require("../middleware/isAuthorized");
 const isAdmin = require("../middleware/isAdmin");
 
@@ -20,9 +19,8 @@ router.use(isAuthorized);
 router.use("/account", accountRouter);
 router.use("/logout", logoutRouter);
 router.use("/product", productRouter);
-router.use("/requestForDelete", requestForDeleteRouter);
+router.use("/deleteRequest", requestForDeleteRouter);
 router.use(isAdmin);
-router.use("/tag", tagRouter);
 router.use("/users", usersRouter);
 router.use(errorHandler);
 

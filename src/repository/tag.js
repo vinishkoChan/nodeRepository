@@ -6,7 +6,7 @@ class TagRepository {
 
   async create(name) {
 
-    if(!await this.readByTagName(name)){
+    if(!await this.readByName(name)){
 
      return await Tag.create({
         name: name,
@@ -36,8 +36,18 @@ class TagRepository {
 
   }
 
-  async readByTagName(name) {
+  async searchProductByTag(tagName){
+
+    const tag = await this.readByName(tagName);
+
+    return tag.getProducts();
+
+  }
+
+  async readByName(name) {
+
     return await Tag.findOne({where: {name: name}});
+    
   }
 
 }

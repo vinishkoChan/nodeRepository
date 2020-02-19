@@ -17,8 +17,12 @@ router.post("/:id/image", upload.single('image'), productController.setImage);
 router.put("/:id/mark", isUser, productController.setMark);
 router.delete("/:id/mark", isUser, productController.deleteMark);
 router.use(isAdmin);
+router.get("/:id/tags", productController.listTags);
+router.post("/:id/tags", productController.addTag);
+router.delete("/:id/tags", productController.deleteTag);
 router.post("/", validate(ProductScheme.create), productController.create);
 router.put("/:id", validate(ProductScheme.update), productController.update);
 router.delete("/:id", productController.delete);
+
 
 module.exports = router;
