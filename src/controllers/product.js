@@ -77,19 +77,37 @@ class ProductController {
 
   }
 
-  async search(req, res, next) {
+  async searchByTags(req, res, next) {
 
     try{
 
       let tags = req.body;
 
-      res.json(await productService.searchByTag(tags));
+      res.json(await productService.searchByTags(tags));
 
     }catch(err){
 
       next(err);
 
     }
+  }
+
+  async searchByName(req, res, next) {
+
+    try{
+
+      let name = req.query.name;
+
+      res.json(await productService.searchByName(name));
+
+    }catch(err){
+
+      console.log(err)
+
+      next(err);
+
+    }
+
   }
 
   async getImage(req, res, next) {

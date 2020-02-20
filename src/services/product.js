@@ -3,6 +3,7 @@ const Mark = require("../repository/mark");
 const markService = require("./mark");
 const Tag = require("../repository/tag");
 const ProductTag = require("../repository/productTag");
+const modifier = require("../helpers/prodModifier");
 
 class ProductService {
   
@@ -18,7 +19,7 @@ class ProductService {
 
   }
 
-  async searchByTag(tags){
+  async searchByTags(tags){
 
     const tagIds = [];
 
@@ -45,20 +46,17 @@ class ProductService {
 
     let products = await Product.readSome(productIds);
 
-    for (let prod of products) {
+    await modifier.modify(products, Mark);
 
-      prod.dataValues["Amount of marks"] = await Mark.countMarks(prod.id);
+    return products;
 
-      let tags = await prod.getTags();
+  }
 
-      prod.dataValues.tags = [];
+  async searchByName(name) {
 
-      for (let tag of tags) {
+    let products = await Product.searchByName(name);
 
-        prod.dataValues.tags.push(tag.name);
-
-      }
-    }
+    await modifier.modify(products, Mark);
 
     return products;
 
@@ -122,20 +120,7 @@ class ProductService {
 
     const products = await Product.list(params);
 
-    for (let prod of products) {
-
-      prod.dataValues["Amount of marks"] = await Mark.countMarks(prod.id);
-
-      let tags = await prod.getTags();
-
-      prod.dataValues.tags = [];
-
-      for (let tag of tags) {
-
-        prod.dataValues.tags.push(tag.name);
-
-      }
-    }
+    await modifier.modify(products, Mark);
 
     return products;
 

@@ -11,7 +11,8 @@ const upload = multer({storage: storage});
 const router = express.Router();
 
 router.get("/", productController.list);
-router.get("/search", productController.search);
+router.get("/search/tags", productController.searchByTags);
+router.get("/search", productController.searchByName);
 router.get("/:id/image", productController.getImage);
 router.post("/:id/image", upload.single('image'), productController.setImage);
 router.put("/:id/mark", isUser, productController.setMark);

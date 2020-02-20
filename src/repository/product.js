@@ -32,6 +32,12 @@ class ProductRepository {
 
   }
 
+  async searchByName(name) {
+
+    return await Product.findAll({where: {name: {[Op.like]: `%${name}%`}}});
+
+  }
+
   async update(id, productData) {
 
     if(productData.amount && productData.amount == 0) {
