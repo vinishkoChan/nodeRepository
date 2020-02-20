@@ -12,7 +12,9 @@ const usersRouter = require("../routes/user");
 const requestForDeleteRouter = require("../routes/deleteRequest");
 const isAuthorized = require("../middleware/isAuthorized");
 const isAdmin = require("../middleware/isAdmin");
+const mongoLogger = require("../helpers/mongoLogger");
 
+router.use(mongoLogger.storeEvent);
 router.use("/signup", signupRouter);
 router.use("/login", loginRouter);
 router.use(isAuthorized);
