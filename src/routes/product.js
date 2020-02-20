@@ -6,7 +6,9 @@ const validate = require("../middleware/validate");
 const ProductScheme = require("../schemes/product");
 const multer = require('multer');
 const storage = require("../config").storage;
-const upload = multer({storage: storage});
+const fileFilter = require("../config").fileFilter;
+const limits = require("../config").limits;
+const upload = multer({storage: storage, fileFilter: fileFilter, limits: limits});
 
 const router = express.Router();
 

@@ -20,10 +20,38 @@ module.exports = {
 
       filename: function (req, file, cb) {
 
-        cb(null, "product" + req.params.id + "image-" + Date.now());
+        const splittedName = file.originalname.split(".");
+
+        const ext = splittedName[splittedName.length - 1];
+
+        const fileName = "product" + req.params.id + "image-" + Date.now() + "." + ext;
+
+        file.originalname = fileName;
+
+        cb(null, fileName);
 
       }
     }
-  )
+  ),
+
+  fileFilter: (req, file, cb) => {
+  
+    if(file.mimetype === "image/png" || 
+    file.mimetype === "image/jpg"|| 
+    file.mimetype === "image/jpeg"){
+        cb(null, true);
+    }
+    else{
+        cb(null, false);
+    }
+ },
+
+ limits: {
+
+  fileSize: 2097152,//process.env.MAX_IMG_SIZE,
+
+  files: 1
+
+ }
 
 };

@@ -139,6 +139,12 @@ class ProductController {
 
     try{
 
+      if(!req.file) {
+
+        throw new NotAcceptableError("File was not loaded");
+
+      }
+
       const productId = req.params.id; 
       const productData = {
 
@@ -161,7 +167,11 @@ class ProductController {
 
     }catch (err) {
 
-      fileHandler.delete(req.file.filename);
+      if(req.file) {
+
+        fileHandler.delete(req.file.filename);
+
+      }
 
       return next(err);
 
