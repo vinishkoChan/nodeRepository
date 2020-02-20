@@ -18,9 +18,49 @@ class ProductService {
 
   }
 
-  searchByTag(tagName){
+  async searchByTag(tags){
 
-    return Tag.searchProductByTag(tagName);
+    const tagIds = [];
+
+    for (let tagName in tags){
+
+      let tag = await Tag.readByName(tags[tagName]);
+
+      tagIds.push(tag.id);
+
+    }
+
+    const relations = await ProductTag.getProductsWithTag(tagIds);
+    let productIds = [];
+
+    for (let relation of relations) {
+
+      productIds.push(relation.dataValues.product_id);
+
+    }
+
+    productIds = new Set(productIds);
+
+    productIds = [...productIds];
+
+    let products = await Product.readSome(productIds);
+
+    for (let prod of products) {
+
+      prod.dataValues["Amount of marks"] = await Mark.countMarks(prod.id);
+
+      let tags = await prod.getTags();
+
+      prod.dataValues.tags = [];
+
+      for (let tag of tags) {
+
+        prod.dataValues.tags.push(tag.name);
+
+      }
+    }
+
+    return products;
 
   }
 
@@ -84,8 +124,17 @@ class ProductService {
 
     for (let prod of products) {
 
-      prod["Amount of marks"] = await Mark.countMarks(prod.id);
+      prod.dataValues["Amount of marks"] = await Mark.countMarks(prod.id);
 
+      let tags = await prod.getTags();
+
+      prod.dataValues.tags = [];
+
+      for (let tag of tags) {
+
+        prod.dataValues.tags.push(tag.name);
+
+      }
     }
 
     return products;

@@ -26,6 +26,12 @@ class ProductRepository {
     
   }
 
+  async readSome(id) {
+
+    return await Product.findAll({where: {id: id}});
+
+  }
+
   async update(id, productData) {
 
     if(productData.amount && productData.amount == 0) {
@@ -87,7 +93,6 @@ class ProductRepository {
           sequelize.fn('isnull', sequelize.col('amount')),
           orderBy
       ],
-      raw: true,
       offset: offset,
       limit: limit
     });

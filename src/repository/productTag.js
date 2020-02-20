@@ -22,9 +22,9 @@ class ProductTagRepository {
 
   }
 
-  async listTagsNames(tagsIds) {
+  async getProductsWithTag(tagIds) {
 
-   return await Tag.findAll({where: {id: tagsIds}});
+    return await ProductTag.findAll({where: {tag_id: tagIds}});
 
   }
 

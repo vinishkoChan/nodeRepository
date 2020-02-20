@@ -25,7 +25,7 @@ class ProductController {
 
   async addTag(req, res, next) {
 
-    const productId = req.params.productId;
+    const productId = req.params.id;
     const tagName = req.query.tagName;
 
     try {
@@ -65,7 +65,7 @@ class ProductController {
 
     try {
 
-      let productId = req.params.productId;
+      let productId = req.params.id;
 
       res.json(await productService.listTags(productId));
       
@@ -81,9 +81,9 @@ class ProductController {
 
     try{
 
-      let tag = req.query.tag;
+      let tags = req.body;
 
-      res.json(await productService.searchByTag(tag));
+      res.json(await productService.searchByTag(tags));
 
     }catch(err){
 
